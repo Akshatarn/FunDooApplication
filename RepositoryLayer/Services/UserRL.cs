@@ -5,6 +5,8 @@ using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace RepositoryLayer.Services
@@ -14,6 +16,8 @@ namespace RepositoryLayer.Services
         private readonly FunDooContext fundooContext;
 
         private readonly IConfiguration iconfiguration;
+        private bool x;
+
         public UserRL(FunDooContext fundooContext, IConfiguration iconfiguration)
         {
             this.fundooContext = fundooContext;
@@ -40,6 +44,19 @@ namespace RepositoryLayer.Services
                     return null;
                 }
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public string Login(UserLogin userLogin)
+        {
+            try
+            {
+                var result = fundooContext.UserTable.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
+                return "Login Succesfull";
             }
             catch (Exception)
             {

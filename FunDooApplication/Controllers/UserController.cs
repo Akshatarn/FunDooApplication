@@ -38,6 +38,29 @@ namespace FunDooApplication.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("Login")]
+        public IActionResult Login(UserLogin userLogin)
+        {
+            try
+            {
+                var result = iuserBL.Login(userLogin);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Login successful", data = result });
+                }
+                else
+                {
+                    return NotFound(new { success = false, message = "Login unsuccessful" });
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
     
