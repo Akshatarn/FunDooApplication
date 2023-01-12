@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -99,6 +100,29 @@ namespace RepositoryLayer.Services
 
             return tokenHandler.WriteToken(token);
 
+        }
+        public string ForgotPassword(string email)
+        {
+            try
+            {
+                var result = fundooContext.UserTable.Where(x => x.Email == email).FirstOrDefault();
+                if(result!=null)
+                {
+                    var token = GenerateSecurityToken(result.Email, result.UserId);
+                    MSMQ_Model mq = new MSMQ_Model();
+                    mq.sendData2Queue(token);
+                    return token;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

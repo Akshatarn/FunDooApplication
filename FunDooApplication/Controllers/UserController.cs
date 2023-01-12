@@ -61,6 +61,29 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public IActionResult ForgotPassword(string email)
+        {
+            try
+            {
+                var result = iuserBL.ForgotPassword(email);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Mail sent successfully", data = result });
+                }
+                else
+                {
+                    return NotFound(new { success = false, message = "Mail sent unsuccessful" });
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
     
