@@ -1,8 +1,10 @@
 ﻿using BussinessLayer.Interface;
 using CommonLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 
 namespace FunDooApplication.Controllers
 {
@@ -81,6 +83,29 @@ namespace FunDooApplication.Controllers
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+        [Authorize]
+        [HttpPut]
+        [Route("ResetPassword")]
+        public IActionResult PasswordReset(string new_password, string confirm_password)
+        {
+            try
+            {
+                var email = User.FindFirst(ClaimTypes.Email).Value.ToString();
+                var result = iuserBL.ResetPassword(email, new_password, confirm_password);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Password Reset Successfull" });
+                }
+                else
+                {
+                    return this.NotFound(new { success = false, message = "Password Reset Failed" });
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
