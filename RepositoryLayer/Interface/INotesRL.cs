@@ -10,5 +10,7 @@ namespace RepositoryLayer.Interface
     {
         public NotesEntity CreateNotes(CreateNoteModel createNodeMidel,long userId);
         public IEnumerable<NotesEntity> RetrieveNotes(long userId, long noteId);
+        public NotesEntity UpdateNotes(long noteId, long userId, CreateNoteModel createNoteModel);
+        
     }
 }

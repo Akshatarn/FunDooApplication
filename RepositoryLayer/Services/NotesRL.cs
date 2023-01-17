@@ -65,5 +65,36 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public NotesEntity UpdateNotes(long noteId, long userId, CreateNoteModel createNoteModel)
+        {
+            try
+            {
+                var result = fundooContext.Notes.Where(x => x.UserId == userId && x.NoteID == noteId).FirstOrDefault();
+                if (result != null)
+                {
+                    result.Title = createNoteModel.Title;
+                    result.Description = createNoteModel.Description;
+                    result.Reminder = createNoteModel.Reminder;
+                    result.Color = createNoteModel.Color;
+                    result.Image = createNoteModel.Image;
+                    result.Archive = createNoteModel.Archive;
+                    result.Pin = createNoteModel.Pin;
+                    result.Trash = createNoteModel.Trash;
+                    result.Created = createNoteModel.Created;
+                    result.Edited = createNoteModel.Edited;
+                    fundooContext.SaveChanges();
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        
     }
 }

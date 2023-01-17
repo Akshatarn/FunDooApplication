@@ -20,12 +20,12 @@ namespace FunDooApplication.Controllers
         [Authorize]
         [HttpPost] //Entring the data in the database
         [Route("CreateNote")]
-        public IActionResult CreateNote(CreateNoteModel createNodeMidel)
+        public IActionResult CreateNote(CreateNoteModel createNodeModel)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-                var result = iNoteBL.CreateNotes(createNodeMidel,userId);
+                var result = iNoteBL.CreateNotes(createNodeModel,userId);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Note Create Successfully", data = result });
@@ -62,5 +62,28 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [HttpPut]
+        [Route("UpdateNote")]
+        public IActionResult UpdateNotes(long noteId, CreateNoteModel createNoteModel)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBL.UpdateNotes(noteId, userId, createNoteModel);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Update Notes Successfully", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Unable to Update Note." });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+        
     }
 }
