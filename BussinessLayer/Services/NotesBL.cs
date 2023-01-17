@@ -49,7 +49,17 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
-        
+        public NotesEntity DeleteNotes(long noteId, long userId)
+        {
+            try
+            {
+                return this.iNoteRL.DeleteNotes(noteId, userId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 

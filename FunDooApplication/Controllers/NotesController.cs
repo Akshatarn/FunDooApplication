@@ -84,6 +84,27 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
-        
+        [HttpDelete]
+        [Route("DeleteNote")]
+        public IActionResult DeleteNotes(long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBL.DeleteNotes(noteId, userId);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Notes Deleted Successfully", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Unable to Delete Note." });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }
