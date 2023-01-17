@@ -130,6 +130,7 @@ namespace RepositoryLayer.Services
             {
                 if (new_password == confirm_password)
                 {
+
                     var result = fundooContext.Users.Where(x => x.Email == email).FirstOrDefault();
                     result.Password = new_password;
                     fundooContext.SaveChanges();
