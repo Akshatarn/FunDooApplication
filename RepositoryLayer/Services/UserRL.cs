@@ -41,7 +41,7 @@ namespace RepositoryLayer.Services
                 userEntityobj.LastName = userRegistrationModel.LastName;
                 userEntityobj.Email = userRegistrationModel.Email;
                 userEntityobj.Password = userRegistrationModel.Password;
-                fundooContext.UserTable.Add(userEntityobj);
+                fundooContext.Users.Add(userEntityobj);
                 int result = fundooContext.SaveChanges();
                 if (result != 0)
                 {
@@ -63,7 +63,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var result = fundooContext.UserTable.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
+                var result = fundooContext.Users.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
                 if(result != null && result.Password==userLogin.Password)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
@@ -105,7 +105,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var result = fundooContext.UserTable.Where(x => x.Email == email).FirstOrDefault();
+                var result = fundooContext.Users.Where(x => x.Email == email).FirstOrDefault();
                 if(result!=null)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
@@ -121,6 +121,27 @@ namespace RepositoryLayer.Services
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+        public bool ResetPassword(string email, string new_password, string confirm_password)
+        {
+            try
+            {
+                if (new_password == confirm_password)
+                {
+                    var result = fundooContext.Users.Where(x => x.Email == email).FirstOrDefault();
+                    result.Password = new_password;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

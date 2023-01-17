@@ -14,20 +14,7 @@ namespace BussinessLayer.Services
         public UserBL(IUserRL iuserRL)
         {
             this.iuserRL = iuserRL;
-        }
-
-        public string ForgotPassword(string email)
-        {
-            try
-            {
-                return iuserRL.ForgotPassword(email);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        }       
 
         public string Login(UserLogin userLogin)
         {
@@ -46,6 +33,29 @@ namespace BussinessLayer.Services
             try
             {
                 return iuserRL.Registration(userRegistrationModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public string ForgotPassword(string email)
+        {
+            try
+            {
+                return iuserRL.ForgotPassword(email);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool ResetPassword(string email, string new_password, string confirm_password)
+        {
+            try
+            {
+                return iuserRL.ResetPassword(email, new_password, confirm_password);
             }
             catch (Exception)
             {
