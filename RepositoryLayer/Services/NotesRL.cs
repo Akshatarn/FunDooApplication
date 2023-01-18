@@ -119,5 +119,31 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public bool PinNote(long noteId)
+        {
+            try
+            {
+                var result = fundooContext.Notes.FirstOrDefault(e => e.NoteID == noteId);
+
+                if (result.Pin == true)
+                {
+
+                    result.Pin = false;
+                    fundooContext.SaveChanges();
+
+                    return false;
+                }
+                else
+                {
+                    result.Pin = true;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

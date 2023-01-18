@@ -12,5 +12,6 @@ namespace BussinessLayer.Interface
         public IEnumerable<NotesEntity> RetrieveNotes(long userId, long noteId);
         public NotesEntity UpdateNotes(long noteId, long userId, CreateNoteModel createNoteModel);
         public NotesEntity DeleteNotes(long noteId,long userId);    
+        public bool PinNote(long noteId);
     }
 }
