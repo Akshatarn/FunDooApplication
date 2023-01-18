@@ -172,5 +172,26 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [HttpPut]
+        [Route("ChangeColor")]
+        public IActionResult ColorChangeNote(long noteId,string color)
+        {
+            try
+            {
+                var result = iNoteBL.ColorChangeNote(noteId,color);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Color Changed Successfully", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Color Change Unsuccesfull." });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }

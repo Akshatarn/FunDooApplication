@@ -15,5 +15,6 @@ namespace BussinessLayer.Interface
         public bool PinNote(long noteId);
         public bool Trash(long noteId);
         public bool ArchiveNote(long noteId);
+        public NotesEntity ColorChangeNote(long noteId,string color);
     }
 }
