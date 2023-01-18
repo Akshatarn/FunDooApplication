@@ -82,6 +82,17 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+        public bool ArchiveNote(long noteId)
+        {
+            try
+            {
+                return this.iNoteRL.ArchiveNote(noteId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 

@@ -150,5 +150,27 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [HttpPut]
+        [Route("ArchieveOrUnArchieve")]
+        public IActionResult ArchiveNote(long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBL.ArchiveNote(noteId);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Archieved Successfully", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Archieve Unsuccesfull." });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }
