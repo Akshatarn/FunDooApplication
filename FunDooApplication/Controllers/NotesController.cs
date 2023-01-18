@@ -193,5 +193,27 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [HttpPost]
+        [Route("UploadImage")]
+        public IActionResult UploadImage( [FromQuery]NoteIdModelModel noteIdModel,IFormFile image)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBL.UploadImage(userId, noteIdModel, image);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Image Uploaded Successfully", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Image Upload Unsuccesfull." });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }
