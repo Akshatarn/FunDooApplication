@@ -128,5 +128,27 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [HttpPut]
+        [Route("Trashed")]
+        public IActionResult Trash(long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBL.PinNote(noteId);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Trashed Successfully", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Trash Unsuccesfull." });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }

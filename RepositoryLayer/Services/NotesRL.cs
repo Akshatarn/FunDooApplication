@@ -145,5 +145,31 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public bool Trash(long noteId)
+        {
+            try
+            {
+                var result = fundooContext.Notes.FirstOrDefault(e => e.NoteID == noteId);
+
+                if (result.Trash == true)
+                {
+
+                    result.Trash = false;
+                    fundooContext.SaveChanges();
+
+                    return false;
+                }
+                else
+                {
+                    result.Trash = true;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace RepositoryLayer.Interface
         public NotesEntity UpdateNotes(long noteId, long userId, CreateNoteModel createNoteModel);
         public NotesEntity DeleteNotes(long noteId,long userId);
         public bool PinNote(long noteId);
+        public bool Trash(long noteId); 
     }
 }
