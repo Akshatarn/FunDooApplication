@@ -11,6 +11,7 @@ namespace BussinessLayer.Interface
         public bool CreateLabel(long noteId, long userId, string labelName);
         public IEnumerable<LabelEntity> RetrieveLabel(long labelId);
         public bool UpdateLabel(long userId, UpdateLabel update);
+        public bool DeleteLabel(long labelId);  
 
     }
 }

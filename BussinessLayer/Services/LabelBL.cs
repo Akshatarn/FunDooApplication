@@ -6,6 +6,7 @@ using RepositoryLayer.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BussinessLayer.Services
 {
@@ -45,6 +46,18 @@ namespace BussinessLayer.Services
             try
             {
                 return this.ilabelRL.UpdateLabel(userId, update);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool DeleteLabel(long labelId)
+        {
+            try
+            {
+                return this.ilabelRL.DeleteLabel(labelId);
             }
             catch (Exception)
             {

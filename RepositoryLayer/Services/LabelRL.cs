@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RepositoryLayer.Services
 {
@@ -69,6 +70,28 @@ namespace RepositoryLayer.Services
                 if (result != null)
                 {
                     result.LabelName = update.NewLabelName;
+                    funDooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool DeleteLabel(long labelId)
+        {
+            try
+            {
+                var result = funDooContext.Labels.FirstOrDefault(e => e.LabelId == labelId);
+                if (result != null)
+                {
+                    funDooContext.Labels.Remove(result);
                     funDooContext.SaveChanges();
                     return true;
                 }

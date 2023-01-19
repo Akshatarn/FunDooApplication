@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Context;
+using RepositoryLayer.Services;
 using System;
 using System.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace FunDooApplication.Controllers
 {
@@ -91,6 +93,21 @@ namespace FunDooApplication.Controllers
             {
 
                 throw;
+            }
+        }
+        [Authorize]
+        [HttpDelete]
+        [Route("Delete-Label")]
+        public IActionResult DeleteLabel(long labelId)
+        {
+            var result = ilabelBL.DeleteLabel(labelId);
+            if (result!=null)
+            {
+                return this.Ok(new { success = true, message = "Label Deleted SuccessFully", data = result });
+            }
+            else
+            {
+                return this.BadRequest(new { success = false, message = "Label not Deleted !" });
             }
         }
 
