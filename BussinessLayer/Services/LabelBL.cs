@@ -1,4 +1,5 @@
 ﻿using BussinessLayer.Interface;
+using CommonLayer.Model;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using RepositoryLayer.Services;
@@ -39,5 +40,19 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+        public bool UpdateLabel(long userId, UpdateLabel update)
+        {
+            try
+            {
+                return this.ilabelRL.UpdateLabel(userId, update);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
     }
 }

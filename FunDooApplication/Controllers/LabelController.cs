@@ -1,4 +1,6 @@
 ﻿using BussinessLayer.Interface;
+using BussinessLayer.Services;
+using CommonLayer.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -67,5 +69,30 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpPost]
+        [Route("Update-Label")]
+        public IActionResult UpdateLabel(UpdateLabel update)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = ilabelBL.UpdateLabel(userId, update);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Label Updated SuccessFully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Label not updated !" });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

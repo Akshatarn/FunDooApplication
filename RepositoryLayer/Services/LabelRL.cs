@@ -1,4 +1,5 @@
-﻿using RepositoryLayer.Context;
+﻿using CommonLayer.Model;
+using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
@@ -60,5 +61,28 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public bool UpdateLabel(long userId, UpdateLabel update)
+        {
+            try
+            {
+                var result = funDooContext.Labels.Where(e => e.userId == userId && e.LabelName == update.OldLabelName).FirstOrDefault();
+                if (result != null)
+                {
+                    result.LabelName = update.NewLabelName;
+                    funDooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
+
