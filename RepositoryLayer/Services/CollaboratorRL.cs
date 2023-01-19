@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
@@ -54,6 +55,28 @@ namespace RepositoryLayer.Services
             {
                 var result = funDooContext.Collaborators.Where(e => e.NoteID == noteId).ToList();
                 return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool DeleteCollab(long collabId)
+        {
+            try
+            {
+                var result = funDooContext.Collaborators.FirstOrDefault(e => e.CollabId == collabId);
+                if(result!=null)
+                {
+                    funDooContext.Collaborators.Remove(result);
+                    funDooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception)
             {

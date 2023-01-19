@@ -38,5 +38,17 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+        public bool DeleteCollab(long collabId)
+        {
+            try
+            {
+                return this.icollabRL.DeleteCollab(collabId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

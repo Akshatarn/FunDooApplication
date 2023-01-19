@@ -9,5 +9,6 @@ namespace BussinessLayer.Interface
     {
         public CollaboratorEntity CreateCollab(long noteId, string email);
         public IEnumerable<CollaboratorEntity> RetrieveCollab(long noteId);
+        public bool DeleteCollab(long collabId);
     }
 }

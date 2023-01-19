@@ -69,5 +69,30 @@ namespace FunDooApplication.Controllers
             }
 
         }
+        [Authorize]
+        [HttpDelete]
+        [Route("Remove-Collaborator")]
+        public IActionResult DeleteCollab(long collabId)
+        {
+            try
+            {
+                var result = icollabBL.DeleteCollab(collabId);
+                if(result!=null)
+                {
+                    return Ok(new { success = true, message = "Collaborator Removed", data = result });
+
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Unable to Remove collaborator" });
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
