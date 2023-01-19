@@ -48,5 +48,18 @@ namespace RepositoryLayer.Services
             
 
         }
+        public IEnumerable<CollaboratorEntity> RetrieveCollab(long noteId)
+        {
+            try
+            {
+                var result = funDooContext.Collaborators.Where(e => e.NoteID == noteId).ToList();
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

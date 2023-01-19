@@ -26,7 +26,7 @@ namespace FunDooApplication.Controllers
         {
             try
             {
-                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                //long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
                 var result = icollabBL.CreateCollab(noteId, email);
                 if (result != null)
                 {
@@ -43,6 +43,31 @@ namespace FunDooApplication.Controllers
                 throw;
             }
             
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("Retrieve-Collaborator")]
+        public IActionResult RetrieveCollab(long noteId)
+        {
+            try
+            {
+                //long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = icollabBL.RetrieveCollab(noteId);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Collaborator Retrieved", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Unable to Retrieve collaborator" });
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }
