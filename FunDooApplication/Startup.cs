@@ -48,6 +48,8 @@ namespace FunDooApplication
             services.AddTransient<INotesRL, NotesRL>();
             services.AddTransient<ICollaboratorBL,CollaboratorBL>();
             services.AddTransient<ICollaboratorRL, CollaboratorRL>();
+            services.AddTransient<ILabelRL, LabelRL>();
+            services.AddTransient<ILabelBL, LabelBL>();
             services.AddSwaggerGen();
             services.AddSwaggerGen(opt =>
             {
