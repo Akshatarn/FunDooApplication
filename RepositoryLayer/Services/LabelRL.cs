@@ -48,5 +48,17 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public IEnumerable<LabelEntity> RetrieveLabel(long labelId)
+        {
+            try
+            {
+                var result = funDooContext.Labels.Where(e => e.LabelId == labelId).ToList();
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

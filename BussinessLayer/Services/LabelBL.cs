@@ -1,5 +1,7 @@
 ﻿using BussinessLayer.Interface;
+using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +20,18 @@ namespace BussinessLayer.Services
             try
             {
                 return this.ilabelRL.CreateLabel(noteId, userId, labelName);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public IEnumerable<LabelEntity> RetrieveLabel(long labelId)
+        {
+            try
+            {
+                return this.ilabelRL.RetrieveLabel(labelId);
             }
             catch (Exception)
             {

@@ -43,5 +43,29 @@ namespace FunDooApplication.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpGet]
+        [Route("Retrieve-Label")]
+        public IActionResult RetrieveLabel(long labelId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = ilabelBL.RetrieveLabel(labelId);
+                if(result!=null)
+                {
+                    return Ok(new { success = true, message = "Retrieve Successfull", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Retrieve Unsuccessfull" });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
