@@ -50,6 +50,7 @@ namespace FunDooApplication
             services.AddTransient<ICollaboratorRL, CollaboratorRL>();
             services.AddTransient<ILabelRL, LabelRL>();
             services.AddTransient<ILabelBL, LabelBL>();
+
             services.AddSwaggerGen();
             services.AddSwaggerGen(opt =>
             {
@@ -95,6 +96,10 @@ namespace FunDooApplication
                     ClockSkew = TimeSpan.Zero,// It forces tokens to expire exactly at token expiration time instead of 5 minutes later
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
                 };
+            });
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
             });
 
         }
