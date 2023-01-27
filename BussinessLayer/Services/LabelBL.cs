@@ -17,11 +17,11 @@ namespace BussinessLayer.Services
         {
             this.ilabelRL = labelRL;
         }
-        public bool CreateLabel(long noteId,long userId,string labelName)
+        public LabelEntity CreateLabel(long noteId, long UserId, string labelName)
         {
             try
             {
-                return this.ilabelRL.CreateLabel(noteId, userId, labelName);
+                return ilabelRL.CreateLabel(noteId,UserId,labelName);
             }
             catch (Exception)
             {

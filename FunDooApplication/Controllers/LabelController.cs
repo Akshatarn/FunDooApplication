@@ -26,12 +26,12 @@ namespace FunDooApplication.Controllers
         [Authorize]
         [HttpPost]
         [Route("Create-Label")]
-        public IActionResult CreateLabel(long noteId,long userId,string labelname)
+        public IActionResult CreateLabel(long noteId,string labelname)
         {
             try
             {
-                //long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-                var result = ilabelBL.CreateLabel(noteId, userId, labelname);
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = ilabelBL.CreateLabel(noteId,userId, labelname);
                 if(result!=null)
                 {
                     return Ok(new { success = true, message = "Label Created", data = result });

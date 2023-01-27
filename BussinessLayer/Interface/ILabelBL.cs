@@ -8,7 +8,7 @@ namespace BussinessLayer.Interface
 {
     public interface ILabelBL
     {
-        public bool CreateLabel(long noteId, long userId, string labelName);
+        public LabelEntity CreateLabel(long noteId, long UserId, string labelName);
         public IEnumerable<LabelEntity> RetrieveLabel(long labelId);
         public bool UpdateLabel(long userId, UpdateLabel update);
         public bool DeleteLabel(long labelId);  

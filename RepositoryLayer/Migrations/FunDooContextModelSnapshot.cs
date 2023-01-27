@@ -57,16 +57,16 @@ namespace RepositoryLayer.Migrations
                     b.Property<long>("NoteID")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("userId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("LabelId");
 
                     b.HasIndex("NoteID");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Labels");
+                    b.ToTable("Label");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.NotesEntity", b =>
@@ -165,7 +165,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasOne("RepositoryLayer.Entity.UserEntity", "User")
                         .WithMany()
-                        .HasForeignKey("userId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

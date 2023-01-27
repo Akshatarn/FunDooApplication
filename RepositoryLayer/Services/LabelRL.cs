@@ -17,31 +17,25 @@ namespace RepositoryLayer.Services
         {
             this.funDooContext = funDooContext;
         }
-        public bool CreateLabel(long noteId,long userId,string labelName)
+        public LabelEntity CreateLabel(long noteId,long UserId,string labelName)
         {
             try
             {
-                var result = funDooContext.Labels.Where(e => e.userId == userId);
-                if(result!=null)
+                var notesresult = funDooContext.Notes.Where( x=>x.NoteID == noteId).FirstOrDefault();
+                var userresult = funDooContext.Users.Where( x=>x.UserId == UserId).FirstOrDefault();
+                if (notesresult!=null && userresult!=null)
                 {
                     LabelEntity labelEntity= new LabelEntity(); ;
-                    labelEntity.NoteID= noteId;
-                    labelEntity.userId= userId;
+                    labelEntity.NoteID= notesresult.NoteID;
+                    labelEntity.UserId= userresult.UserId;
                     labelEntity.LabelName= labelName;
-                    funDooContext.Labels.Add(labelEntity);
-                    int saveResult = funDooContext.SaveChanges();
-                    if(saveResult>0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    funDooContext.Label.Add(labelEntity);
+                    funDooContext.SaveChanges();
+                    return labelEntity;
                 }
                 else
                 {
-                    return false;
+                    return null;
                 }
             }
             catch (Exception)
@@ -54,7 +48,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var result = funDooContext.Labels.Where(e => e.LabelId == labelId).ToList();
+                var result = funDooContext.Label.Where(e => e.LabelId == labelId).ToList();
                 return result;
             }
             catch (Exception)
@@ -66,7 +60,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var result = funDooContext.Labels.Where(e => e.userId == userId && e.LabelName == update.OldLabelName).FirstOrDefault();
+                var result = funDooContext.Label.Where(e => e.UserId == userId && e.LabelName == update.OldLabelName).FirstOrDefault();
                 if (result != null)
                 {
                     result.LabelName = update.NewLabelName;
@@ -88,10 +82,10 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var result = funDooContext.Labels.FirstOrDefault(e => e.LabelId == labelId);
+                var result = funDooContext.Label.FirstOrDefault(e => e.LabelId == labelId);
                 if (result != null)
                 {
-                    funDooContext.Labels.Remove(result);
+                    funDooContext.Label.Remove(result);
                     funDooContext.SaveChanges();
                     return true;
                 }

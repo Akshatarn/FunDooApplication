@@ -13,7 +13,7 @@ namespace RepositoryLayer.Entity
         public long LabelId { get; set; }
         public string LabelName { get; set; }
         [ForeignKey("User")]
-        public long userId { get; set; }
+        public long UserId { get; set; }
         public virtual UserEntity User { get; set; }
         [ForeignKey("Notes")]
         public long NoteID { get; set; }
