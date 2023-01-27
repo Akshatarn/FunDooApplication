@@ -15,6 +15,11 @@ namespace RepositoryLayer.Services
     {
         private readonly FunDooContext funDooContext;
         private readonly IConfiguration iconfiguration;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fundooContext"></param>
+        /// <param name="iconfiguration"></param>
         public CollaboratorRL(FunDooContext funDooContext, IConfiguration iconfiguration)
         {
             this.funDooContext = funDooContext;
@@ -49,6 +54,11 @@ namespace RepositoryLayer.Services
             
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CollabId"></param>
+        /// <returns></returns>
         public IEnumerable<CollaboratorEntity> RetrieveCollab(long noteId)
         {
             try
@@ -62,6 +72,12 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collabIDModel"></param>
+        /// <param name="noteId"></param>
+        /// <returns></returns>
         public bool DeleteCollab(long collabId)
         {
             try

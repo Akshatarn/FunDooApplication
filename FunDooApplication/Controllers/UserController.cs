@@ -72,7 +72,7 @@ namespace FunDooApplication.Controllers
                 var result = iuserBL.ForgotPassword(email);
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "Mail sent successfully", data = result });
+                    return Ok(new { success = true, message = "Mail sent successfully" });
                 }
                 else
                 {

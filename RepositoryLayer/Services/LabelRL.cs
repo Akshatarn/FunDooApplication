@@ -17,6 +17,13 @@ namespace RepositoryLayer.Services
         {
             this.funDooContext = funDooContext;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="NoteID"></param>
+        /// <param name="userId"></param>
+        /// <param name="labelName"></param>
+        /// <returns></returns>
         public LabelEntity CreateLabel(long noteId,long UserId,string labelName)
         {
             try
@@ -44,6 +51,11 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LabelID"></param>
+        /// <returns></returns>
         public IEnumerable<LabelEntity> RetrieveLabel(long labelId)
         {
             try
@@ -78,6 +90,11 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LabelID"></param>
+        /// <returns></returns>
         public bool DeleteLabel(long labelId)
         {
             try

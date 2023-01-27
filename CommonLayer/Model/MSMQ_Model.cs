@@ -30,7 +30,7 @@ namespace CommonLayer.Model
             var message = mq.EndReceive(e.AsyncResult);
             string token = message.Body.ToString();
             string subject = "Receive Completed";
-            string body = token;
+            string body = $"Fundoo Notes Reset Password: <a href=http://localhost:4200/resetPassword/{token}> Click Here</a>";
             var smtp = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,

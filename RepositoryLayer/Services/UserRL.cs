@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Model;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer.Context;
@@ -20,10 +21,29 @@ namespace RepositoryLayer.Services
         private readonly FunDooContext fundooContext;
         private readonly string _secret;
         private readonly string _expDate;
+        public static string Key = "akshata_rn00";
 
         private readonly IConfiguration iconfiguration;
         private bool x;
 
+        public static string ConvertoEncrypt(string password)
+        {
+            if (string.IsNullOrEmpty(password))
+                return "";
+            password += Key;
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            return Convert.ToBase64String(passwordBytes);
+        }
+
+        public static string ConvertoDecrypt(string base64EncodeData)
+        {
+            if (string.IsNullOrEmpty(base64EncodeData))
+                return "";
+            var base64EncodeBytes = Convert.FromBase64String(base64EncodeData);
+            var result = Encoding.UTF8.GetString(base64EncodeBytes);
+            result = result.Substring(0, result.Length - Key.Length);
+            return result;
+        }
         public UserRL(FunDooContext fundooContext, IConfiguration iconfiguration)
         {
             this.fundooContext = fundooContext;
@@ -41,6 +61,7 @@ namespace RepositoryLayer.Services
                 userEntityobj.LastName = userRegistrationModel.LastName;
                 userEntityobj.Email = userRegistrationModel.Email;
                 userEntityobj.Password = userRegistrationModel.Password;
+                userEntityobj.Password = ConvertoEncrypt(userRegistrationModel.Password);
                 fundooContext.Users.Add(userEntityobj);
                 int result = fundooContext.SaveChanges();
                 if (result != 0)
@@ -63,8 +84,9 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var result = fundooContext.Users.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
-                if(result != null && result.Password==userLogin.Password)
+                var result = fundooContext.Users.Where(x => x.Email == userLogin.Email).FirstOrDefault();
+                var decryptPass = ConvertoDecrypt(result.Password);
+                if (result != null && decryptPass == userLogin.Password)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
                     return token;
@@ -120,7 +142,6 @@ namespace RepositoryLayer.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
